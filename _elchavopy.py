@@ -16,7 +16,8 @@ sql_cursor = sql_connection.cursor()
 belgeler = mongodb_collection.find()
 
 for belge in belgeler:
-    if "UserIp" in belge:                
+    if "UserIp" in belge:
+# UserIP Mongo verilerinde varsa kayıt ediyor bulamadığı takdirde alt tarafa geçip, sql'de UserIp'ye null atayıp verileri kaydetmeye devam ediyor.
         sql_cursor.execute("INSERT INTO verilerim (UserID, UserInformation, UserCreatedAt, UserGuildID, UserIP) VALUES (%s, %s, %s, %s, %s)",
                             (belge["UserID"], belge["UserInformation"], belge["UserCreatedAt"], belge["UserGuildID"], belge["UserIp"]))
     else:
